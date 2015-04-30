@@ -12,7 +12,6 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    //@IBOutlet weak var debugTextLabel: UILabel!
     
     var session: NSURLSession!
     var appDelegate: AppDelegate!
@@ -20,6 +19,7 @@ class LoginViewController: UIViewController {
     var keyboardAdjusted = false
     var lastKeyboardOffset : CGFloat = 0.0
     
+    var backgroundGradient: CAGradientLayer? = nil
     var tapRecognizer: UITapGestureRecognizer? = nil
     
     override func viewDidLoad() {
@@ -28,25 +28,79 @@ class LoginViewController: UIViewController {
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         /* Get the shared URL session */
         session = NSURLSession.sharedSession()
+        // Configure the UI
+        self.configureUI()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.addKeyboardDismissRecognizer()
         self.subscribeToKeyboardNotifications()
-        self.view.userInteractionEnabled = true
-        var tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
-        self.view.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        self.removeKeyboardDismissRecognizer()
         self.unsubscribeToKeyboardNotifications()
-        self.view.removeGestureRecognizer(tapRecognizer!)
+    }
+    
+    func configureUI() {
+        
+        /* Configure background gradient */
+        self.view.backgroundColor = UIColor.clearColor()
+        let colorTop = UIColor(red: 0.345, green: 0.839, blue: 0.988, alpha: 1.0).CGColor
+        let colorBottom = UIColor(red: 0.023, green: 0.569, blue: 0.910, alpha: 1.0).CGColor
+        self.backgroundGradient = CAGradientLayer()
+        self.backgroundGradient!.colors = [colorTop, colorBottom]
+        self.backgroundGradient!.locations = [0.0, 1.0]
+        self.backgroundGradient!.frame = view.frame
+        self.view.layer.insertSublayer(self.backgroundGradient, atIndex: 0)
+        
+        /* Configure header text label */
+        //headerTextLabel.font = UIFont(name: "AvenirNext-Medium", size: 24.0)
+        //headerTextLabel.textColor = UIColor.whiteColor()
+        
+        /* Configure email textfield */
+        let emailTextFieldPaddingViewFrame = CGRectMake(0.0, 0.0, 13.0, 0.0);
+        let emailTextFieldPaddingView = UIView(frame: emailTextFieldPaddingViewFrame)
+        usernameTextField.leftView = emailTextFieldPaddingView
+        usernameTextField.leftViewMode = .Always
+        usernameTextField.font = UIFont(name: "AvenirNext-Medium", size: 17.0)
+        usernameTextField.backgroundColor = UIColor(red: 0.702, green: 0.863, blue: 0.929, alpha:1.0)
+        usernameTextField.textColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: usernameTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        usernameTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+        
+        /* Configure password textfield */
+        let passwordTextFieldPaddingViewFrame = CGRectMake(0.0, 0.0, 13.0, 0.0);
+        let passwordTextFieldPaddingView = UIView(frame: passwordTextFieldPaddingViewFrame)
+        passwordTextField.leftView = passwordTextFieldPaddingView
+        passwordTextField.leftViewMode = .Always
+        passwordTextField.font = UIFont(name: "AvenirNext-Medium", size: 17.0)
+        passwordTextField.backgroundColor = UIColor(red: 0.702, green: 0.863, blue: 0.929, alpha:1.0)
+        passwordTextField.textColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        passwordTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+        
+        /* Configure debug text label */
+        //headerTextLabel.font = UIFont(name: "AvenirNext-Medium", size: 20)
+        //headerTextLabel.textColor = UIColor.whiteColor()
+        
+        /* Configure tap recognizer */
+        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer?.numberOfTapsRequired = 1
+        
     }
     
     // MARK: - Keyboard Fixes
     
-
+    func addKeyboardDismissRecognizer() {
+        self.view.addGestureRecognizer(tapRecognizer!)
+    }
+    
+    func removeKeyboardDismissRecognizer() {
+        self.view.removeGestureRecognizer(tapRecognizer!)
+    }
     
     func handleTap(recognizer: UITapGestureRecognizer) {
         self.view.endEditing(true)
@@ -95,14 +149,10 @@ class LoginViewController: UIViewController {
     
     //Get Udacity Login Session
     func getUdacitySession() {
-        /* 1. Set the parameters */
-        let methodParameters = [
-            "username" : usernameTextField.text,
-            "password" : passwordTextField.text
-        ]
+        let username = usernameTextField.text
+        let password = passwordTextField.text
         
-        /* 2. Build the URL */
-        let urlString = appDelegate.baseURLSecureString + "session" + appDelegate.escapedParameters(methodParameters)
+        let urlString = appDelegate.baseURLSecureString + "session"
         let url = NSURL(string: urlString)!
         
         /* 3. Configure the request */
@@ -110,7 +160,7 @@ class LoginViewController: UIViewController {
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"udacity\": {\"username\": \"pankumazumdar@gmail.com\", \"password\": \"braveheart\"}}".dataUsingEncoding(NSUTF8StringEncoding)
+        request.HTTPBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         
         /* 4. Make the request */
         let session = NSURLSession.sharedSession()
