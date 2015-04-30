@@ -110,19 +110,18 @@ class LoginViewController: UIViewController {
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = "{\"udacity\": {\"username\": \"pankumazumdar@gmail.com\", \"password\": \"braveheart\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         
         /* 4. Make the request */
+        let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            
             if error != nil {
                 println("Could not complete the request \(error)")
-                return
             } else {
-                
+                /* 5. Parse the data */
                 let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
                 println(NSString(data: newData, encoding: NSUTF8StringEncoding))
                 println("Login successful")
-               
             }
         }
         /* 7. Start the request */
