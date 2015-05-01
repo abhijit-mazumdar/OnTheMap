@@ -28,10 +28,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWF-Xp-Veo">
-                                <rect key="frame" x="277" y="246" width="46" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="MVD-3d-X25"/>
-                                </constraints>
+                                <rect key="frame" x="16" y="246" width="568" height="30"/>
                                 <state key="normal" title="Login">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -39,18 +36,31 @@
                                     <action selector="loginButtonPressed:" destination="SbV-57-iDy" eventType="touchUpInside" id="Wxv-78-J4q"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqB-Fb-MHg">
+                                <rect key="frame" x="16" y="273" width="568" height="30"/>
+                                <state key="normal" title="Don't have an account? Sign Up">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="signupButton:" destination="SbV-57-iDy" eventType="touchUpInside" id="84K-ld-5Zw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="top" secondItem="z1t-2j-Bv9" secondAttribute="bottom" constant="20" id="1S8-vp-iFo"/>
+                            <constraint firstItem="ZqB-Fb-MHg" firstAttribute="top" secondItem="z1t-2j-Bv9" secondAttribute="bottom" constant="47" id="Bc6-qo-UvD"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="leading" secondItem="C6M-sY-yqV" secondAttribute="leading" id="HrE-7f-jEi"/>
+                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="top" secondItem="z1t-2j-Bv9" secondAttribute="bottom" constant="20" id="HxW-3r-6dR"/>
+                            <constraint firstItem="ZqB-Fb-MHg" firstAttribute="leading" secondItem="OYo-CB-NAC" secondAttribute="leadingMargin" id="RQ3-YQ-Zjc"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="top" secondItem="C6M-sY-yqV" secondAttribute="bottom" constant="29" id="RSn-Zt-dwk"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="C6M-sY-yqV" secondAttribute="trailing" id="X6Q-vK-cuV"/>
+                            <constraint firstItem="ZqB-Fb-MHg" firstAttribute="leading" secondItem="zWF-Xp-Veo" secondAttribute="leading" id="aQe-RR-zra"/>
+                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="trailing" secondItem="z1t-2j-Bv9" secondAttribute="trailing" id="df0-L5-b57"/>
                             <constraint firstItem="C6M-sY-yqV" firstAttribute="trailing" secondItem="OYo-CB-NAC" secondAttribute="trailingMargin" id="gM9-by-kWi"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="top" secondItem="C6M-sY-yqV" secondAttribute="bottom" constant="29" id="nhD-kd-KPV"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="C6M-sY-yqV" secondAttribute="trailing" id="nhZ-eX-8CX"/>
-                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="centerX" secondItem="z1t-2j-Bv9" secondAttribute="centerX" id="sAR-VS-oSi"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="leading" secondItem="C6M-sY-yqV" secondAttribute="leading" id="sEQ-ts-DdU"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="leading" secondItem="zWF-Xp-Veo" secondAttribute="leading" id="npk-K3-oXi"/>
                             <constraint firstItem="C6M-sY-yqV" firstAttribute="top" secondItem="rHE-Gl-wBJ" secondAttribute="bottom" constant="117" id="umT-pq-30t"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="leading" secondItem="OYo-CB-NAC" secondAttribute="leadingMargin" id="wrF-ax-Zxw"/>
+                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="trailing" secondItem="ZqB-Fb-MHg" secondAttribute="trailing" id="z7b-Yb-qQJ"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Vrz-ZS-l2z" appends="YES" id="J19-2m-qmt"/>
@@ -64,7 +74,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PLT-bM-pFZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="Vrz-ZS-l2z"/>
             </objects>
-            <point key="canvasLocation" x="438" y="305"/>
+            <point key="canvasLocation" x="32" y="358"/>
+        </scene>
+        <!--List-->
+        <scene sceneID="0Y3-Mh-Pbk">
+            <objects>
+                <viewController id="t6G-Tu-rSS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Aiw-Td-V9V"/>
+                        <viewControllerLayoutGuide type="bottom" id="lBF-iV-HM6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uN4-Eo-zWf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="List" image="list" id="Gva-dB-xod"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OTN-co-y9v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1525" y="689"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="Mb2-pj-L4U">
+            <objects>
+                <viewController id="DIG-qy-yPa" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rtj-jm-Gki"/>
+                        <viewControllerLayoutGuide type="bottom" id="Q4Y-j1-FYE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="u1Y-Ev-yPX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="O2d-Rq-8Z2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LjJ-Wm-7vw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1525" y="27"/>
+        </scene>
+        <!--MapAndTableTabBarController-->
+        <scene sceneID="mQB-JQ-nca">
+            <objects>
+                <tabBarController storyboardIdentifier="MapAndTableTabBarController" title="MapAndTableTabBarController" id="mgn-Of-EBa" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="229-BK-zlM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="DIG-qy-yPa" kind="relationship" relationship="viewControllers" id="xd8-Qv-gi1"/>
+                        <segue destination="t6G-Tu-rSS" kind="relationship" relationship="viewControllers" id="1VL-nk-rlB"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Gl-YZ-n1J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="705" y="358"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="list" width="32" height="32"/>
+        <image name="map" width="32" height="32"/>
+    </resources>
 </document>

@@ -12,7 +12,8 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
+
+  
     var session: NSURLSession!
     var appDelegate: AppDelegate!
     
@@ -42,6 +43,21 @@ class LoginViewController: UIViewController {
         super.viewWillDisappear(animated)
         self.removeKeyboardDismissRecognizer()
         self.unsubscribeToKeyboardNotifications()
+    }
+    
+    //Segue to tab bar on login successful
+    func completeLogin() {
+        dispatch_async(dispatch_get_main_queue(), {
+            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MapAndTableTabBarController") as! UITabBarController
+            self.presentViewController(controller, animated: true, completion: nil)
+        })
+    }
+    
+    func presentAlertView(){
+        /*var alert = UIAlertController(title: "Login Failed", message: "Could not complete the request \(error)", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+        */
     }
     
     func configureUI() {
@@ -149,6 +165,9 @@ class LoginViewController: UIViewController {
     
     //Get Udacity Login Session
     func getUdacitySession() {
+        self.usernameTextField.resignFirstResponder()
+        self.passwordTextField.resignFirstResponder()
+        
         let username = usernameTextField.text
         let password = passwordTextField.text
         
@@ -168,14 +187,34 @@ class LoginViewController: UIViewController {
             if error != nil {
                 println("Could not complete the request \(error)")
             } else {
-                /* 5. Parse the data */
+                //self.completeLogin()
                 let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-                println(NSString(data: newData, encoding: NSUTF8StringEncoding))
-                println("Login successful")
+                //println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+                //Fetch the session id
+                var parsingError: NSError? = nil
+                let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
+                if let session = parsedResult["session"] as? NSDictionary{
+                    if let id = session["id"] as? NSString{
+                    self.completeLogin()
+                    }
+                }
+                if let errorMessage = parsedResult["error"] as? String {
+                    println("Login failed with error: " + errorMessage)
+                    self.usernameTextField.resignFirstResponder()
+                    self.passwordTextField.resignFirstResponder()
+                    var alert = UIAlertController(title: "Login Failed", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
             }
         }
         /* 7. Start the request */
         task.resume()
+    }
+    
+    //Handle Signup tap
+    @IBAction func signupButton(sender: AnyObject) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signin")!)
     }
     
 }
