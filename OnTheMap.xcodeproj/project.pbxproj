@@ -13,6 +13,8 @@
 		A87E892B1AEDF8EC005A2623 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A87E892A1AEDF8EC005A2623 /* Images.xcassets */; };
 		A87E892E1AEDF8EC005A2623 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A87E892C1AEDF8EC005A2623 /* LaunchScreen.xib */; };
 		A87E893A1AEDF8ED005A2623 /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E89391AEDF8ED005A2623 /* OnTheMapTests.swift */; };
+		A87E89441AF6CFD0005A2623 /* StudentMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E89431AF6CFD0005A2623 /* StudentMapViewController.swift */; };
+		A87E89461AF6CFF2005A2623 /* StudentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E89451AF6CFF2005A2623 /* StudentTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		A87E89331AEDF8ED005A2623 /* OnTheMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A87E89381AEDF8ED005A2623 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A87E89391AEDF8ED005A2623 /* OnTheMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapTests.swift; sourceTree = "<group>"; };
+		A87E89431AF6CFD0005A2623 /* StudentMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentMapViewController.swift; sourceTree = "<group>"; };
+		A87E89451AF6CFF2005A2623 /* StudentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,8 @@
 				A87E89231AEDF8EC005A2623 /* AppDelegate.swift */,
 				A87E89251AEDF8EC005A2623 /* LoginViewController.swift */,
 				A87E89271AEDF8EC005A2623 /* Main.storyboard */,
+				A87E89431AF6CFD0005A2623 /* StudentMapViewController.swift */,
+				A87E89451AF6CFF2005A2623 /* StudentTableViewController.swift */,
 				A87E892A1AEDF8EC005A2623 /* Images.xcassets */,
 				A87E892C1AEDF8EC005A2623 /* LaunchScreen.xib */,
 				A87E89211AEDF8EC005A2623 /* Supporting Files */,
@@ -213,6 +219,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A87E89261AEDF8EC005A2623 /* LoginViewController.swift in Sources */,
+				A87E89441AF6CFD0005A2623 /* StudentMapViewController.swift in Sources */,
+				A87E89461AF6CFF2005A2623 /* StudentTableViewController.swift in Sources */,
 				A87E89241AEDF8EC005A2623 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
