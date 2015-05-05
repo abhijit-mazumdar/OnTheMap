@@ -15,6 +15,7 @@
 		A87E893A1AEDF8ED005A2623 /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E89391AEDF8ED005A2623 /* OnTheMapTests.swift */; };
 		A87E89441AF6CFD0005A2623 /* StudentMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E89431AF6CFD0005A2623 /* StudentMapViewController.swift */; };
 		A87E89461AF6CFF2005A2623 /* StudentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E89451AF6CFF2005A2623 /* StudentTableViewController.swift */; };
+		A87E89481AF6E3C8005A2623 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E89471AF6E3C8005A2623 /* StudentLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		A87E89391AEDF8ED005A2623 /* OnTheMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapTests.swift; sourceTree = "<group>"; };
 		A87E89431AF6CFD0005A2623 /* StudentMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentMapViewController.swift; sourceTree = "<group>"; };
 		A87E89451AF6CFF2005A2623 /* StudentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentTableViewController.swift; sourceTree = "<group>"; };
+		A87E89471AF6E3C8005A2623 /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				A87E89231AEDF8EC005A2623 /* AppDelegate.swift */,
 				A87E89251AEDF8EC005A2623 /* LoginViewController.swift */,
 				A87E89271AEDF8EC005A2623 /* Main.storyboard */,
+				A87E89471AF6E3C8005A2623 /* StudentLocation.swift */,
 				A87E89431AF6CFD0005A2623 /* StudentMapViewController.swift */,
 				A87E89451AF6CFF2005A2623 /* StudentTableViewController.swift */,
 				A87E892A1AEDF8EC005A2623 /* Images.xcassets */,
@@ -221,6 +224,7 @@
 				A87E89261AEDF8EC005A2623 /* LoginViewController.swift in Sources */,
 				A87E89441AF6CFD0005A2623 /* StudentMapViewController.swift in Sources */,
 				A87E89461AF6CFF2005A2623 /* StudentTableViewController.swift in Sources */,
+				A87E89481AF6E3C8005A2623 /* StudentLocation.swift in Sources */,
 				A87E89241AEDF8EC005A2623 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
