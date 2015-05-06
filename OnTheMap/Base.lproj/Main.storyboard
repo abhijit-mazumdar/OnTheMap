@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D130a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mgn-Of-EBa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D130a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="SbV-57-iDy">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -17,12 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="C6M-sY-yqV">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="C6M-sY-yqV">
                                 <rect key="frame" x="16" y="200" width="568" height="30"/>
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="z1t-2j-Bv9">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="z1t-2j-Bv9">
                                 <rect key="frame" x="16" y="247" width="568" height="30"/>
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -60,25 +60,33 @@
                                     <action selector="loginWithFacebook:" destination="SbV-57-iDy" eventType="touchUpInside" id="oW8-Br-VjX"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On The Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8LF-zi-QWE">
+                                <rect key="frame" x="243" y="129" width="114" height="28"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                                <color key="textColor" red="0.27297996460000001" green="0.60607157420000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.90588241815567017" green="0.56862747669219971" blue="0.51372551918029785" alpha="1" colorSpace="deviceRGB"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="zWF-Xp-Veo" secondAttribute="trailing" id="1U4-jP-eB3"/>
                             <constraint firstItem="ZqB-Fb-MHg" firstAttribute="trailing" secondItem="zWF-Xp-Veo" secondAttribute="trailing" id="2N9-VF-axq"/>
                             <constraint firstItem="zWF-Xp-Veo" firstAttribute="centerY" secondItem="OYo-CB-NAC" secondAttribute="centerY" id="4Xz-aH-1Yt"/>
+                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="top" secondItem="z1t-2j-Bv9" secondAttribute="bottom" constant="5" id="5Li-aN-YLY"/>
                             <constraint firstItem="Ht4-QJ-KRO" firstAttribute="trailing" secondItem="ZqB-Fb-MHg" secondAttribute="trailing" id="638-XD-8oz"/>
+                            <constraint firstItem="C6M-sY-yqV" firstAttribute="centerX" secondItem="8LF-zi-QWE" secondAttribute="centerX" id="6Nw-rN-Cyq"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="leading" secondItem="zWF-Xp-Veo" secondAttribute="leading" id="7kN-8L-H1s"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="OYo-CB-NAC" secondAttribute="trailingMargin" id="9C5-Lc-g0H"/>
                             <constraint firstItem="ZqB-Fb-MHg" firstAttribute="leading" secondItem="zWF-Xp-Veo" secondAttribute="leading" id="Ast-qu-htC"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="top" secondItem="C6M-sY-yqV" secondAttribute="bottom" constant="17" id="EBv-LR-05L"/>
                             <constraint firstItem="Ht4-QJ-KRO" firstAttribute="leading" secondItem="OYo-CB-NAC" secondAttribute="leadingMargin" id="IPT-hJ-oN4"/>
+                            <constraint firstItem="C6M-sY-yqV" firstAttribute="top" secondItem="8LF-zi-QWE" secondAttribute="bottom" constant="43" id="K6C-jI-ymU"/>
                             <constraint firstItem="Ht4-QJ-KRO" firstAttribute="top" secondItem="ZqB-Fb-MHg" secondAttribute="bottom" constant="53" id="MZh-is-TFR"/>
-                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="leading" secondItem="z1t-2j-Bv9" secondAttribute="leading" id="QZ4-HU-eze"/>
-                            <constraint firstItem="C6M-sY-yqV" firstAttribute="leading" secondItem="z1t-2j-Bv9" secondAttribute="leading" id="RnR-1S-Iky"/>
                             <constraint firstItem="ZqB-Fb-MHg" firstAttribute="top" secondItem="zWF-Xp-Veo" secondAttribute="bottom" constant="8" symbolic="YES" id="UGJ-zq-89V"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="OYo-CB-NAC" secondAttribute="trailingMargin" id="cCz-hh-vtv"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="zWF-Xp-Veo" secondAttribute="trailing" id="nPO-rk-GE6"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="top" secondItem="C6M-sY-yqV" secondAttribute="bottom" constant="17" id="oxy-Pf-4La"/>
+                            <constraint firstItem="C6M-sY-yqV" firstAttribute="trailing" secondItem="z1t-2j-Bv9" secondAttribute="trailing" id="WbY-ef-bgN"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="leading" secondItem="C6M-sY-yqV" secondAttribute="leading" id="rjR-Us-3uI"/>
                             <constraint firstItem="Ht4-QJ-KRO" firstAttribute="leading" secondItem="ZqB-Fb-MHg" secondAttribute="leading" id="uHM-Ax-kmj"/>
-                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="top" secondItem="z1t-2j-Bv9" secondAttribute="bottom" constant="8" symbolic="YES" id="vJ5-lj-ibb"/>
-                            <constraint firstItem="C6M-sY-yqV" firstAttribute="trailing" secondItem="z1t-2j-Bv9" secondAttribute="trailing" id="wxl-zS-vY1"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Vrz-ZS-l2z" appends="YES" id="J19-2m-qmt"/>
