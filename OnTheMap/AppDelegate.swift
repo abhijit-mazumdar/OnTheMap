@@ -16,8 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let baseURLSecureString = "https://www.udacity.com/api/"
     
     var sessionID: String? = nil
-
-
+    
+    var studentLocations = [StudentLocation]()
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true

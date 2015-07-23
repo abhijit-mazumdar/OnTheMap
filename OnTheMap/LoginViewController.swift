@@ -53,13 +53,7 @@ class LoginViewController: UIViewController {
         })
     }
     
-    func presentAlertView(){
-        /*var alert = UIAlertController(title: "Login Failed", message: "Could not complete the request \(error)", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-        */
-    }
-    
+  
     func configureUI() {
         
         /* Configure background gradient */

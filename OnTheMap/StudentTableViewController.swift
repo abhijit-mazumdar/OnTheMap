@@ -8,28 +8,62 @@
 
 import UIKit
 
-class StudentTableViewController: UIViewController {
+class StudentTableViewController: UITableViewController,UITableViewDataSource{
 
+    var studentLocations = [StudentLocation]()
+    var session = NSURLSession.sharedSession()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        studentLocations = appDelegate.studentLocations
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100")!)
+        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil {
+                println("Could not complete the request \(error)")
+            } else {
+                var parsingError: NSError? = nil
+                let parsedResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
+                if let results = parsedResult["results"] as? [AnyObject]{
+                    //self.studentLocations = StudentLocation.studentLocationFromResults(results)
+                    for result in results{
+                        var firstName = result["firstName"] as! String
+                        var lastName = result["lastName"] as! String
+                        
+                        println(firstName + " " + lastName)
+                    }
+                    
+                } else {
+                    println("Could not find results in \(parsedResult)")
+                }
+            }
+        }
+        task.resume()
     }
-    */
-
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return studentLocations.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cellReuseIdentifier = "StudentTableViewCell"
+        let studentLocation = studentLocations[indexPath.row]
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! UITableViewCell
+        // Add student name to table view cell text
+        cell.textLabel!.text = studentLocation.fullName
+        
+        return cell
+    }
+    
+    
 }

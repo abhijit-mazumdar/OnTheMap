@@ -22,6 +22,7 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
         loadStudentAnnotationsToMapView()
     }
     
+   
     // Load student anotations from JSON
     func loadStudentAnnotationsToMapView() {
         
