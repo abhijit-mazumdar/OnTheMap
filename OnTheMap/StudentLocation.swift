@@ -7,33 +7,29 @@
 //
 
 import Foundation
-import UIKit
 
 class StudentLocation {
-    var firstName: String
-    var lastName: String
-    var mapString: String
-    var mediaURL: String
+    var objectId:String?
+    var uniqueKey:String?
+    var firstName:String?
+    var lastName:String?
+    var mapString:String?
+    var mediaURL:String?
+    var latitude:Double?
+    var longitude:Double?
     var fullName: String{
         get{
-            return self.firstName + " " + self.lastName
+            return self.firstName! + " " + self.lastName!
         }
     }
-    
-    init(firstName: String, lastName: String,mapString: String, mediaURL: String) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.mapString = mapString
-        self.mediaURL = mediaURL
-    }
-    
-    //Get Student Locations from result dictionary
-    static func studentLocationFromResults(results: NSArray) -> [StudentLocation] {
-        var studentLocations = [StudentLocation]()
-        
-        for result in results{
-            studentLocations.append(result as! StudentLocation)
-        }
-        return studentLocations
+    init(dictionary: NSDictionary) {
+        objectId = dictionary["objectId"] as? String
+        uniqueKey = dictionary["uniqueKey"] as? String
+        firstName = dictionary["firstName"] as? String
+        lastName = dictionary["lastName"] as? String
+        mapString = dictionary["mapString"] as? String
+        mediaURL = dictionary["mediaURL"] as? String
+        latitude = dictionary["latitude"] as? Double
+        longitude = dictionary["longitude"] as? Double
     }
 }
