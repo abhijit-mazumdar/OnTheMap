@@ -60,7 +60,7 @@ class StudentTableViewController: UITableViewController,UITableViewDataSource{
         let studentLocation = studentLocations[indexPath.row]
         var cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! UITableViewCell
         // Add student name to table view cell text
-        cell.textLabel!.text = studentLocation.fullName
+        cell.textLabel!.text = studentLocation.description
         
         return cell
     }
