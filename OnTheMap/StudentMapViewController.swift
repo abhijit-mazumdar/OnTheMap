@@ -13,52 +13,64 @@ import CoreLocation
 class StudentMapViewController: UIViewController,MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
-    //var StudentLocation[]
     
+    var selected: MKAnnotation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        loadStudentAnnotationsToMapView()
+        StudentClient.sharedInstance().getStudentLocations { (success, errorString) -> Void in
+            if(success) {
+                self.loadStudentAnnotationsToMapView()
+            }
+        }
+        
     }
     
    
     // Load student anotations from JSON
     func loadStudentAnnotationsToMapView() {
-        
-        
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100")!)
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil {
-                println("Could not complete the request \(error)")
-            } else {
-                var parsingError: NSError? = nil
-                let parsedResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
-                if let results = parsedResult["results"] as? NSArray{
-                    for result in results{
-                        var firstName = result["firstName"] as! String
-                        var lastName = result["lastName"] as! String
-                        //var latitude = result["latitiude"] as! CLLocationDegrees
-                        var latitude: CLLocationDegrees = 34.7303688
-                        var longitude = result["longitude"] as! CLLocationDegrees
-                        var mapString = result["mapString"] as! String
-                        var mediaURL = result["mediaURL"] as! String
-                        var title = firstName + " " + lastName
-                        
-                        let annotation = MKPointAnnotation()
-                        annotation.coordinate = CLLocationCoordinate2DMake(latitude,longitude)
-                        annotation.title = title
-                        annotation.subtitle = mediaURL
-                        self.mapView.addAnnotation(annotation)
-                    }
-                }
-                
-            }
+        for studentLocation in StudentClient.sharedInstance().studentLocations {
+            var studentLocationAnnotation = MKPointAnnotation()
+            studentLocationAnnotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude, longitude: studentLocation.longitude)
+            studentLocationAnnotation.title = "\(studentLocation.description)"
+            studentLocationAnnotation.subtitle = "\(studentLocation.mediaURL)"
+            self.mapView.addAnnotation(studentLocationAnnotation)
         }
-        task.resume()
+        dispatch_async(dispatch_get_main_queue(), {
+            self.mapView.setCenterCoordinate(self.mapView.region.center, animated: true)
+        })
+    }
+    
+    // MARK : Map view methods
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.animatesDrop = true
+            
+            var disclosure = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
+            disclosure.addTarget(self, action: Selector("openLink:"), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            pinView!.rightCalloutAccessoryView = disclosure
+            pinView!.canShowCallout = true
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
+    }
+    
+    func openLink(sender: AnyObject) {
+        UIApplication.sharedApplication().openURL(NSURL(string: selected!.subtitle!)!)
+    }
+    
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        //Save the selected annotation
+        selected = view.annotation
     }
 }
