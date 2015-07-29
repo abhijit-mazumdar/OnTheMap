@@ -45,7 +45,6 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
     // MARK : Map view methods
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        
         let reuseId = "pin"
         var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
         if pinView == nil {
