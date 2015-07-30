@@ -151,46 +151,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBAction func loginWithFacebook(sender: AnyObject) {
-        let urlString = appDelegate.baseURLSecureString + "session"
-        let url = NSURL(string: urlString)!
-
-        /*  Configure the request */
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"DADFMS4SN9e8BAD6vMs6yWuEcrJlMZChFB0ZB0PCLZBY8FPFYxIPy1WOr402QurYWm7hj1ZCoeoXhAk2tekZBIddkYLAtwQ7PuTPGSERwH1DfZC5XSef3TQy1pyuAPBp5JJ364uFuGw6EDaxPZBIZBLg192U8vL7mZAzYUSJsZA8NxcqQgZCKdK4ZBA2l2ZA6Y1ZBWHifSM0slybL9xJm3ZBbTXSBZCMItjnZBH25irLhIvbxj01QmlKKP3iOnl8Ey;\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        /*  Make the request */
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil {
-                println("Could not complete the request \(error)")
-            } else {
-                let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-                var parsingError: NSError? = nil
-                let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
-                // Check if registered to FaceBook
-                if let session = parsedResult["session"] as? NSDictionary{
-                    if let id = session["id"] as? NSString{
-                        self.completeLogin()
-                    }
-                }
-                if let errorMessage = parsedResult["error"] as? String {
-                    println("Login failed with error: " + errorMessage)
-                    self.usernameTextField.resignFirstResponder()
-                    self.passwordTextField.resignFirstResponder()
-                    var alert = UIAlertController(title: "Login Failed", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
-            }
-        }
-        
-        /*  Start the request */
-        task.resume()
-        
-    }
+    
     //Get Udacity Login Session
     func getUdacitySession() {
         self.usernameTextField.resignFirstResponder()

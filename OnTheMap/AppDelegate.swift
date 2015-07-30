@@ -13,6 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    let baseURLSecureString = "https://www.udacity.com/api/"
+    
     var sessionID: String? = nil
     
     var studentLocations = [StudentLocation]()

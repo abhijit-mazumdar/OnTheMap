@@ -10,5 +10,13 @@ import Foundation
 import UIKit
 
 class InformationPostingViewController: UIViewController {
+
+    @IBOutlet weak var promptLabel: UILabel!
+    
+    @IBOutlet weak var locationTextView: UITextView!
+    
+    @IBOutlet weak var findMapButton: UIButton!
+    
+    
     
 }
