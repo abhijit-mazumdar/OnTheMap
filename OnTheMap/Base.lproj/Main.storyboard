@@ -124,7 +124,11 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
                                     <navigationItem title="On The Map" id="2J1-BV-8bT">
-                                        <barButtonItem key="leftBarButtonItem" image="pin" id="Asw-0E-Yxm"/>
+                                        <barButtonItem key="leftBarButtonItem" image="pin" id="Asw-0E-Yxm">
+                                            <connections>
+                                                <segue destination="Yux-aV-hkN" kind="presentation" id="6C7-MW-0qd"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="4eO-kw-0E7"/>
                                     </navigationItem>
                                 </items>
@@ -155,6 +159,24 @@
             </objects>
             <point key="canvasLocation" x="1525" y="27"/>
         </scene>
+        <!--Information Posting View Controller-->
+        <scene sceneID="pd8-8J-gL2">
+            <objects>
+                <viewController id="Yux-aV-hkN" customClass="InformationPostingViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7li-3I-Mk2"/>
+                        <viewControllerLayoutGuide type="bottom" id="qd4-48-Nni"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SbR-NB-94b">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NH6-zV-aUB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2335" y="388"/>
+        </scene>
         <!--Item-->
         <scene sceneID="10F-xd-q3D">
             <objects>
@@ -171,8 +193,16 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
                                     <navigationItem title="On The Map" id="oy1-LV-LpQ">
-                                        <barButtonItem key="leftBarButtonItem" image="pin" id="m5Q-U2-Mb4"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="cHg-bK-P3T"/>
+                                        <barButtonItem key="leftBarButtonItem" image="pin" id="m5Q-U2-Mb4">
+                                            <connections>
+                                                <segue destination="Yux-aV-hkN" kind="presentation" id="OOF-UV-Igu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="cHg-bK-P3T">
+                                            <connections>
+                                                <action selector="refresh:" destination="hn2-kn-NQi" id="7oF-6D-9sK"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -180,7 +210,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StudentTableViewCell" textLabel="1hR-gD-cCf" detailTextLabel="NYw-fX-uyy" style="IBUITableViewCellStyleValue1" id="xSL-rN-dt1">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StudentTableViewCell" textLabel="1hR-gD-cCf" style="IBUITableViewCellStyleDefault" id="xSL-rN-dt1">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xSL-rN-dt1" id="P6w-7o-ZgP">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -189,12 +219,6 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NYw-fX-uyy">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -248,4 +272,7 @@
         <image name="map" width="32" height="32"/>
         <image name="pin" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="OOF-UV-Igu"/>
+    </inferredMetricsTieBreakers>
 </document>

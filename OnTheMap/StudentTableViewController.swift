@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StudentTableViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
+class StudentTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var studentLocations = [StudentLocation]()
     
@@ -21,11 +21,9 @@ class StudentTableViewController: UIViewController,UITableViewDataSource, UITabl
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         studentLocations = StudentClient.sharedInstance().studentLocations
+        self.studentsTableView.reloadData()
     }
     
-    func refreshData(sender: AnyObject?) {
-        studentsTableView.reloadData()
-    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return studentLocations.count
@@ -33,10 +31,10 @@ class StudentTableViewController: UIViewController,UITableViewDataSource, UITabl
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("StudentTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("StudentTableViewCell") as! UITableViewCell
         
-        cell.textLabel?.text = "\(studentLocations[indexPath.row].description)"
-        cell.detailTextLabel?.text = "\(studentLocations[indexPath.row].mapString)"
+        cell.textLabel!.text = "\(studentLocations[indexPath.row].description)"
+        //cell.detailTextLabel!.text = "\(studentLocations[indexPath.row].mapString)"
         
         return cell
     }
