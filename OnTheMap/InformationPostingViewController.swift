@@ -66,6 +66,17 @@ class InformationPostingViewController: UIViewController {
                     enteredLocationAnnotation.coordinate = self.userLocation!.coordinate
                     
                     self.mapView.addAnnotation(enteredLocationAnnotation)
+                    
+                    self.mapView.centerCoordinate = self.userLocation!.coordinate
+                    
+                    var scale = abs((cos(2 * M_PI * self.userLocation!.coordinate.latitude / 360.0) ))
+                    
+                    var span = MKCoordinateSpan(latitudeDelta: 5/60.0, longitudeDelta: 5/(scale*60.0))
+                
+                    var region = MKCoordinateRegion(center: self.userLocation!.coordinate, span: span)
+                    
+                    self.mapView.setRegion(region, animated: true)
+
                 }
             } else {
                 var alert = UIAlertController(title: "Geocode Failed", message: "Please enter location in format like Mountain View,CA", preferredStyle: UIAlertControllerStyle.Alert)
@@ -75,6 +86,13 @@ class InformationPostingViewController: UIViewController {
             }
             
         })
+        
+    }
+    
+    // Post student information
+    @IBAction func submitLink(sender: AnyObject) {
+        
+    
         
     }
     

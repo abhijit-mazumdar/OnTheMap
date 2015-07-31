@@ -24,7 +24,7 @@ class StudentTableViewController: UIViewController, UITableViewDelegate, UITable
         self.studentsTableView.reloadData()
     }
     
-    
+    //MARK: Table View Methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return studentLocations.count
     }
