@@ -152,7 +152,6 @@ class LoginViewController: UIViewController {
                 })
             } else {
                 Helper.displayAlert(inViewController: self, withTitle:"Login error", message: errorString!, completionHandler: { (alertAction) -> Void in
-                    self.alert!.dismissViewControllerAnimated(true, completion: nil)
                 })
             }
         }

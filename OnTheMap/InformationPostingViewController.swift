@@ -25,6 +25,7 @@ class InformationPostingViewController: UIViewController {
     
     var userLocation: CLLocation?
     var mapString: String?
+    var alert: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,11 +92,25 @@ class InformationPostingViewController: UIViewController {
     
     // Post student information
     @IBAction func submitLink(sender: AnyObject) {
+        var mediaURL = self.linkTextView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         
+        if UIApplication.sharedApplication().canOpenURL(NSURL(string: mediaURL)!) {
+            StudentClient.sharedInstance().postStudentLocation(self.mapString!, location: self.userLocation!, mediaURL: mediaURL, completionHandler: { (success, errorString) -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                })
+                if success {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                } else {
+                    var alert = UIAlertController(title: "Post Link Failed", message: "Please enter URL in format like http://www.google.com", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            })
+        } else {
+            alert = Helper.displayAlert(inViewController: self, withTitle:"Error", message: "Link is invalid. Please enter a valid URL.", completionHandler: { (alertAction) -> Void in
+                self.alert!.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }
     
-        
     }
-    
-    
-
 }
