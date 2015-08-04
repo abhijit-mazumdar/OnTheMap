@@ -47,19 +47,6 @@
                                     <action selector="signupButton:" destination="SbV-57-iDy" eventType="touchUpInside" id="84K-ld-5Zw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ht4-QJ-KRO">
-                                <rect key="frame" x="16" y="415" width="568" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="p5H-qz-pt3"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
-                                <state key="normal" title="Sign in with Facebook">
-                                    <color key="titleShadowColor" red="0.1339308048" green="0.46226094769999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginWithFacebook:" destination="SbV-57-iDy" eventType="touchUpInside" id="oW8-Br-VjX"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On The Map" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8LF-zi-QWE">
                                 <rect key="frame" x="243" y="129" width="114" height="28"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
@@ -70,23 +57,20 @@
                         <color key="backgroundColor" red="0.90588241815567017" green="0.56862747669219971" blue="0.51372551918029785" alpha="1" colorSpace="deviceRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="zWF-Xp-Veo" secondAttribute="trailing" id="1U4-jP-eB3"/>
-                            <constraint firstItem="ZqB-Fb-MHg" firstAttribute="trailing" secondItem="zWF-Xp-Veo" secondAttribute="trailing" id="2N9-VF-axq"/>
-                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="centerY" secondItem="OYo-CB-NAC" secondAttribute="centerY" id="4Xz-aH-1Yt"/>
-                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="top" secondItem="z1t-2j-Bv9" secondAttribute="bottom" constant="5" id="5Li-aN-YLY"/>
-                            <constraint firstItem="Ht4-QJ-KRO" firstAttribute="trailing" secondItem="ZqB-Fb-MHg" secondAttribute="trailing" id="638-XD-8oz"/>
-                            <constraint firstItem="C6M-sY-yqV" firstAttribute="centerX" secondItem="8LF-zi-QWE" secondAttribute="centerX" id="6Nw-rN-Cyq"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="leading" secondItem="zWF-Xp-Veo" secondAttribute="leading" id="7kN-8L-H1s"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="OYo-CB-NAC" secondAttribute="trailingMargin" id="9C5-Lc-g0H"/>
-                            <constraint firstItem="ZqB-Fb-MHg" firstAttribute="leading" secondItem="zWF-Xp-Veo" secondAttribute="leading" id="Ast-qu-htC"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="top" secondItem="C6M-sY-yqV" secondAttribute="bottom" constant="17" id="EBv-LR-05L"/>
-                            <constraint firstItem="Ht4-QJ-KRO" firstAttribute="leading" secondItem="OYo-CB-NAC" secondAttribute="leadingMargin" id="IPT-hJ-oN4"/>
-                            <constraint firstItem="C6M-sY-yqV" firstAttribute="top" secondItem="8LF-zi-QWE" secondAttribute="bottom" constant="43" id="K6C-jI-ymU"/>
-                            <constraint firstItem="Ht4-QJ-KRO" firstAttribute="top" secondItem="ZqB-Fb-MHg" secondAttribute="bottom" constant="53" id="MZh-is-TFR"/>
-                            <constraint firstItem="ZqB-Fb-MHg" firstAttribute="top" secondItem="zWF-Xp-Veo" secondAttribute="bottom" constant="8" symbolic="YES" id="UGJ-zq-89V"/>
-                            <constraint firstItem="C6M-sY-yqV" firstAttribute="trailing" secondItem="z1t-2j-Bv9" secondAttribute="trailing" id="WbY-ef-bgN"/>
-                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="leading" secondItem="C6M-sY-yqV" secondAttribute="leading" id="rjR-Us-3uI"/>
-                            <constraint firstItem="Ht4-QJ-KRO" firstAttribute="leading" secondItem="ZqB-Fb-MHg" secondAttribute="leading" id="uHM-Ax-kmj"/>
+                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="centerY" secondItem="OYo-CB-NAC" secondAttribute="centerY" id="2P8-aK-dyh"/>
+                            <constraint firstItem="C6M-sY-yqV" firstAttribute="top" secondItem="8LF-zi-QWE" secondAttribute="bottom" constant="43" id="DHw-jW-GhM"/>
+                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="trailing" secondItem="ZqB-Fb-MHg" secondAttribute="trailing" id="N5h-8a-GQA"/>
+                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="leading" secondItem="z1t-2j-Bv9" secondAttribute="leading" id="Pv8-um-jcP"/>
+                            <constraint firstItem="ZqB-Fb-MHg" firstAttribute="top" secondItem="zWF-Xp-Veo" secondAttribute="bottom" constant="8" symbolic="YES" id="Z8o-Up-Wr6"/>
+                            <constraint firstItem="ZqB-Fb-MHg" firstAttribute="leading" secondItem="zWF-Xp-Veo" secondAttribute="leading" id="ZiR-Tf-N04"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="top" secondItem="C6M-sY-yqV" secondAttribute="bottom" constant="17" id="hUk-LB-k1h"/>
+                            <constraint firstItem="zWF-Xp-Veo" firstAttribute="top" secondItem="z1t-2j-Bv9" secondAttribute="bottom" constant="5" id="nel-ir-gp5"/>
+                            <constraint firstItem="ZqB-Fb-MHg" firstAttribute="leading" secondItem="OYo-CB-NAC" secondAttribute="leadingMargin" id="nnv-qW-c4G"/>
+                            <constraint firstItem="8LF-zi-QWE" firstAttribute="centerX" secondItem="C6M-sY-yqV" secondAttribute="centerX" id="qQr-re-6qw"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="C6M-sY-yqV" secondAttribute="trailing" id="qWg-FY-v3y"/>
+                            <constraint firstItem="C6M-sY-yqV" firstAttribute="leading" secondItem="z1t-2j-Bv9" secondAttribute="leading" id="vY1-Jm-9bV"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="zWF-Xp-Veo" secondAttribute="trailing" id="w1Q-pg-6I1"/>
+                            <constraint firstItem="z1t-2j-Bv9" firstAttribute="trailing" secondItem="OYo-CB-NAC" secondAttribute="trailingMargin" id="x7V-Rd-RBa"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Vrz-ZS-l2z" appends="YES" id="J19-2m-qmt"/>
