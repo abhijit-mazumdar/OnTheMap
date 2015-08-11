@@ -23,6 +23,8 @@ class InformationPostingViewController: UIViewController {
     
     @IBOutlet weak var submitButton: UIButton!
     
+    @IBOutlet weak var cancelButton: UIButton!
+    
     var userLocation: CLLocation?
     var mapString: String?
     var alert: UIAlertController?
@@ -35,8 +37,12 @@ class InformationPostingViewController: UIViewController {
         
         submitButton.layer.cornerRadius = 5
         findMapButton.layer.cornerRadius = 5
+        cancelButton.layer.cornerRadius = 5
     }
     
+    @IBAction func cancelButton(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     // Forward geocode the location text view string and show on mapview
     @IBAction func forwardGeocodeAction(sender: AnyObject) {
         var geoCoder = CLGeocoder()

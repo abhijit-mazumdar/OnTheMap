@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OnTheMap/InformationPostingViewController.swift"
-            timestampString = "460318285.332106"
+            timestampString = "461012893.416962"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "forwardGeocodeAction(_:)"
             landmarkType = "5">
          </BreakpointContent>
