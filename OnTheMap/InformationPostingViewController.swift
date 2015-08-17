@@ -43,6 +43,7 @@ class InformationPostingViewController: UIViewController {
     @IBAction func cancelButton(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
     // Forward geocode the location text view string and show on mapview
     @IBAction func forwardGeocodeAction(sender: AnyObject) {
         var geoCoder = CLGeocoder()
@@ -102,8 +103,6 @@ class InformationPostingViewController: UIViewController {
         
         if UIApplication.sharedApplication().canOpenURL(NSURL(string: mediaURL)!) {
             StudentClient.sharedInstance().postStudentLocation(self.mapString!, location: self.userLocation!, mediaURL: mediaURL, completionHandler: { (success, errorString) -> Void in
-                dispatch_async(dispatch_get_main_queue(), {
-                })
                 if success {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 } else {

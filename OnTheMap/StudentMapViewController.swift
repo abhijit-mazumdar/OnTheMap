@@ -27,7 +27,11 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
         
     }
     
-   
+   // Refresh Button
+    @IBAction func refreshStudents(sender: AnyObject) {
+        loadStudentAnnotationsToMapView()
+    }
+    
     // Load student anotations from JSON
     func loadStudentAnnotationsToMapView() {
         for studentLocation in StudentClient.sharedInstance().studentLocations {

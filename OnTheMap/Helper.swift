@@ -13,11 +13,8 @@ class Helper: NSObject {
     
     // Parse JSON Data
     class func parseJSONWithCompletionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
-        
         var parsingError: NSError? = nil
-        
         let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
-        
         if parsingError != nil {
             completionHandler(result: nil, error: parsingError)
         } else {
@@ -27,11 +24,8 @@ class Helper: NSObject {
     // Display Alert View
     class func displayAlert(inViewController viewController: UIViewController, withTitle title: String, message: String, completionHandler: ((UIAlertAction!) -> Void)) -> UIAlertController {
         var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: completionHandler))
-        
         viewController.presentViewController(alert, animated: true, completion: nil)
-        
         return alert
     }
 }

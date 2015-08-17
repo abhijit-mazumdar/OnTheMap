@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StudentTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class StudentTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
 
     var studentLocations = [StudentLocation]()
     
@@ -24,22 +24,23 @@ class StudentTableViewController: UIViewController, UITableViewDelegate, UITable
         self.studentsTableView.reloadData()
     }
     
+    @IBAction func refreshStudents(sender: AnyObject) {
+        self.studentsTableView.reloadData()
+    }
+    
     //MARK: Table View Methods
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return studentLocations.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("StudentTableViewCell") as! UITableViewCell
-        
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("StudentTableViewCell",forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel!.text = "\(studentLocations[indexPath.row].description)"
-        //cell.detailTextLabel!.text = "\(studentLocations[indexPath.row].mapString)"
-        
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         UIApplication.sharedApplication().openURL(NSURL(string: studentLocations[indexPath.row].mediaURL)!)
     }
     
