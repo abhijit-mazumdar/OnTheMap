@@ -34,7 +34,16 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
     
    // Refresh Button
     @IBAction func refreshStudents(sender: AnyObject) {
-        loadStudentAnnotationsToMapView()
+        StudentClient.sharedInstance().getStudentLocations { (success, errorString) -> Void in
+            if(success) {
+                self.loadStudentAnnotationsToMapView()
+            }
+            else{
+                Helper.displayAlert(inViewController: self.alert!, withTitle: "Error", message: "Error dowmloading student data", completionHandler: { (alertAction) -> Void in
+                    self.alert!.dismissViewControllerAnimated(true, completion: nil)
+                })
+            }
+        }
     }
     
     // Load student anotations from JSON

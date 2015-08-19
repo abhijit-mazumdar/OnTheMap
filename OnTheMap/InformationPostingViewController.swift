@@ -69,6 +69,8 @@ class InformationPostingViewController: UIViewController {
     // Forward geocode the location text view string and show on mapview
     @IBAction func forwardGeocodeAction(sender: AnyObject) {
         activityIndicator.hidden = false
+        submitButton.hidden = false
+        if Helper.isConnectedToNetwork(){
         var geoCoder = CLGeocoder()
         Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
         geoCoder.geocodeAddressString(locationTextView.text, completionHandler: { (placemarks, error) -> Void in
@@ -85,8 +87,7 @@ class InformationPostingViewController: UIViewController {
                 self.locationTextView.hidden = true
                 self.findMapButton.hidden = true
                 
-                self.linkTextView.becomeFirstResponder()
-                
+                self.locationTextView.resignFirstResponder()
                 self.mapString = self.locationTextView.text
                 
                 for placemark in placemarks
@@ -110,6 +111,7 @@ class InformationPostingViewController: UIViewController {
 
                 }
                 Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: false)
+                self.activityIndicator.hidden = true
             } else {
                 var alert = UIAlertController(title: "Geocode Failed", message: "Please enter location in format like Mountain View,CA", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -117,14 +119,18 @@ class InformationPostingViewController: UIViewController {
             
             }
             
-        })
-        
+          })
+        } else {
+            var alert = UIAlertController(title: "Network error", message: "Please make sure device is connected to Wi-Fi or phone data", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     // Post student information
     @IBAction func submitLink(sender: AnyObject) {
         var mediaURL = self.linkTextView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        
+        if Helper.isConnectedToNetwork(){
         if UIApplication.sharedApplication().canOpenURL(NSURL(string: mediaURL)!) {
             Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
             StudentClient.sharedInstance().postStudentLocation(self.mapString!, location: self.userLocation!, mediaURL: mediaURL, completionHandler: { (success, errorString) -> Void in
@@ -143,7 +149,11 @@ class InformationPostingViewController: UIViewController {
                 self.alert!.dismissViewControllerAnimated(true, completion: nil)
             })
         }
-    
+        } else {
+            var alert = UIAlertController(title: "Network error", message: "Please make sure device is connected to Wi-Fi or phone data", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     func raiseRetryAlert(title: String, message: String) {

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Foundation
+import SystemConfiguration
 
 class LoginViewController: UIViewController {
     
@@ -52,14 +54,14 @@ class LoginViewController: UIViewController {
     func configureUI() {
         
          //Configure background gradient
-        self.view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clearColor()
         let colorTop = UIColor(red: 0.345, green: 0.839, blue: 0.988, alpha: 1.0).CGColor
         let colorBottom = UIColor(red: 0.023, green: 0.569, blue: 0.910, alpha: 1.0).CGColor
-        self.backgroundGradient = CAGradientLayer()
-        self.backgroundGradient!.colors = [colorTop, colorBottom]
-        self.backgroundGradient!.locations = [0.0, 1.0]
-        self.backgroundGradient!.frame = view.frame
-        self.view.layer.insertSublayer(self.backgroundGradient, atIndex: 0)
+        backgroundGradient = CAGradientLayer()
+        backgroundGradient!.colors = [colorTop, colorBottom]
+        backgroundGradient!.locations = [0.0, 1.0]
+        backgroundGradient!.frame = view.frame
+        view.layer.insertSublayer(self.backgroundGradient, atIndex: 0)
         
        
         /* Configure email textfield */
@@ -137,6 +139,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginButtonPressed(sender: AnyObject) {
+        if Helper.isConnectedToNetwork(){
         self.activityIndicator.hidden = false
         if self.usernameTextField.text.isEmpty {
             alert = Helper.displayAlert(inViewController: self, withTitle:"Error", message: "Please enter your username.", completionHandler: { (alertAction) -> Void in
@@ -158,6 +161,7 @@ class LoginViewController: UIViewController {
         self.passwordTextField.resignFirstResponder()
         
         Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
+        
         UdacityClient.sharedInstance().authenticate(usernameTextField.text, password: passwordTextField.text) { (success, errorString) in
             dispatch_async(dispatch_get_main_queue(), {
                 Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: false)
@@ -168,12 +172,16 @@ class LoginViewController: UIViewController {
                     self.presentViewController(controller, animated: true, completion: nil)
                 })
             } else {
-                Helper.displayAlert(inViewController: self, withTitle:"Login error", message: errorString!, completionHandler: { (alertAction) -> Void in
-                    self.alert!.dismissViewControllerAnimated(true, completion: nil)
-                })
+                var alert = UIAlertController(title: "Login error", message: errorString , preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         }
-
+        } else {
+            var alert = UIAlertController(title: "Network error", message: "Please make sure device is connected to Wi-Fi or phone data", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
   

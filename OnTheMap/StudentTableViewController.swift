@@ -11,9 +11,20 @@ import UIKit
 class StudentTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var studentsTableView: UITableView!
+    var alert: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        StudentClient.sharedInstance().getStudentLocations { (success, errorString) -> Void in
+            if(success) {
+                self.studentsTableView.reloadData()
+            }
+            else{
+                Helper.displayAlert(inViewController: self.alert!, withTitle: "Error", message: "Error dowmloading student data", completionHandler: { (alertAction) -> Void in
+                    self.alert!.dismissViewControllerAnimated(true, completion: nil)
+                })
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -23,7 +34,16 @@ class StudentTableViewController: UITableViewController, UITableViewDataSource, 
     }
     
     @IBAction func refreshStudents(sender: AnyObject) {
-        self.studentsTableView.reloadData()
+        StudentClient.sharedInstance().getStudentLocations { (success, errorString) -> Void in
+            if(success) {
+                self.studentsTableView.reloadData()
+            }
+            else{
+                Helper.displayAlert(inViewController: self.alert!, withTitle: "Error", message: "Error dowmloading student data", completionHandler: { (alertAction) -> Void in
+                    self.alert!.dismissViewControllerAnimated(true, completion: nil)
+                })
+            }
+        }
     }
     
     // Logout Button
