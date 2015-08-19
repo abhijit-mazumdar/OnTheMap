@@ -28,5 +28,19 @@ class Helper: NSObject {
         viewController.presentViewController(alert, animated: true, completion: nil)
         return alert
     }
+    
+    // Display Activity indicator
+    class func displayActivityIndicator(view : UIView, withActivityIndicator activityIndicator: UIActivityIndicatorView, andAnimate enable: Bool) {
+        if enable {
+            view.alpha = 0.6
+            activityIndicator.startAnimating()
+            UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+        } else {
+            view.alpha = 1
+            activityIndicator.stopAnimating()
+            UIApplication.sharedApplication().endIgnoringInteractionEvents()
+            
+        }
+    }
 }
 

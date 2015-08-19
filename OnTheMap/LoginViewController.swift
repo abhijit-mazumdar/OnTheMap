@@ -12,7 +12,9 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var alert: UIAlertController?
   
     var session: NSURLSession!
     var appDelegate: AppDelegate!
@@ -31,6 +33,7 @@ class LoginViewController: UIViewController {
         session = NSURLSession.sharedSession()
         // Configure the UI
         self.configureUI()
+        self.activityIndicator.hidden = true
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -44,27 +47,19 @@ class LoginViewController: UIViewController {
         self.removeKeyboardDismissRecognizer()
         self.unsubscribeToKeyboardNotifications()
     }
-   
-    //Segue to tab bar on login successful
-    func completeLogin() {
-        dispatch_async(dispatch_get_main_queue(), {
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MapAndTableTabBarController") as! UITabBarController
-            self.presentViewController(controller, animated: true, completion: nil)
-        })
-    }
     
   
     func configureUI() {
         
-        /* Configure background gradient */
-//        self.view.backgroundColor = UIColor.clearColor()
-//        let colorTop = UIColor(red: 0.345, green: 0.839, blue: 0.988, alpha: 1.0).CGColor
-//        let colorBottom = UIColor(red: 0.023, green: 0.569, blue: 0.910, alpha: 1.0).CGColor
-//        self.backgroundGradient = CAGradientLayer()
-//        self.backgroundGradient!.colors = [colorTop, colorBottom]
-//        self.backgroundGradient!.locations = [0.0, 1.0]
-//        self.backgroundGradient!.frame = view.frame
-//        self.view.layer.insertSublayer(self.backgroundGradient, atIndex: 0)
+         //Configure background gradient
+        self.view.backgroundColor = UIColor.clearColor()
+        let colorTop = UIColor(red: 0.345, green: 0.839, blue: 0.988, alpha: 1.0).CGColor
+        let colorBottom = UIColor(red: 0.023, green: 0.569, blue: 0.910, alpha: 1.0).CGColor
+        self.backgroundGradient = CAGradientLayer()
+        self.backgroundGradient!.colors = [colorTop, colorBottom]
+        self.backgroundGradient!.locations = [0.0, 1.0]
+        self.backgroundGradient!.frame = view.frame
+        self.view.layer.insertSublayer(self.backgroundGradient, atIndex: 0)
         
        
         /* Configure email textfield */
@@ -91,7 +86,7 @@ class LoginViewController: UIViewController {
         
       
         /* Configure tap recognizer */
-        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleTap:")
         tapRecognizer?.numberOfTapsRequired = 1
         
     }
@@ -142,102 +137,46 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginButtonPressed(sender: AnyObject) {
-        if usernameTextField.text.isEmpty {
-            println("Username Empty.")
-        } else if passwordTextField.text.isEmpty {
-            println("Password Empty.")
-        } else {
-            getUdacitySession()
-        }
-    }
-    
-    @IBAction func loginWithFacebook(sender: AnyObject) {
-        let urlString = appDelegate.baseURLSecureString + "session"
-        let url = NSURL(string: urlString)!
-
-        /*  Configure the request */
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"facebook_mobile\": {\"access_token\": \"DADFMS4SN9e8BAD6vMs6yWuEcrJlMZChFB0ZB0PCLZBY8FPFYxIPy1WOr402QurYWm7hj1ZCoeoXhAk2tekZBIddkYLAtwQ7PuTPGSERwH1DfZC5XSef3TQy1pyuAPBp5JJ364uFuGw6EDaxPZBIZBLg192U8vL7mZAzYUSJsZA8NxcqQgZCKdK4ZBA2l2ZA6Y1ZBWHifSM0slybL9xJm3ZBbTXSBZCMItjnZBH25irLhIvbxj01QmlKKP3iOnl8Ey;\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        /*  Make the request */
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil {
-                println("Could not complete the request \(error)")
-            } else {
-                let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-                var parsingError: NSError? = nil
-                let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
-                // Check if registered to FaceBook
-                if let session = parsedResult["session"] as? NSDictionary{
-                    if let id = session["id"] as? NSString{
-                        self.completeLogin()
-                    }
-                }
-                if let errorMessage = parsedResult["error"] as? String {
-                    println("Login failed with error: " + errorMessage)
-                    self.usernameTextField.resignFirstResponder()
-                    self.passwordTextField.resignFirstResponder()
-                    var alert = UIAlertController(title: "Login Failed", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
-            }
+        self.activityIndicator.hidden = false
+        if self.usernameTextField.text.isEmpty {
+            alert = Helper.displayAlert(inViewController: self, withTitle:"Error", message: "Please enter your username.", completionHandler: { (alertAction) -> Void in
+                self.usernameTextField.becomeFirstResponder()
+                self.alert!.dismissViewControllerAnimated(true, completion: nil)
+            })
+            return
         }
         
-        /*  Start the request */
-        task.resume()
+        if self.passwordTextField.text.isEmpty {
+            alert = Helper.displayAlert(inViewController: self, withTitle:"Error", message: "Please enter your password.", completionHandler: { (alertAction) -> Void in
+                self.passwordTextField.becomeFirstResponder()
+                self.alert!.dismissViewControllerAnimated(true, completion: nil)
+            })
+            return
+        }
         
-    }
-    //Get Udacity Login Session
-    func getUdacitySession() {
         self.usernameTextField.resignFirstResponder()
         self.passwordTextField.resignFirstResponder()
         
-        let username = usernameTextField.text
-        let password = passwordTextField.text
-        
-        let urlString = appDelegate.baseURLSecureString + "session"
-        let url = NSURL(string: urlString)!
-        
-        /*  Configure the request */
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"udacity\": {\"username\": \"\(username)\", \"password\": \"\(password)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        
-        /*  Make the request */
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil {
-                println("Could not complete the request \(error)")
+        Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: true)
+        UdacityClient.sharedInstance().authenticate(usernameTextField.text, password: passwordTextField.text) { (success, errorString) in
+            dispatch_async(dispatch_get_main_queue(), {
+                Helper.displayActivityIndicator(self.view, withActivityIndicator: self.activityIndicator, andAnimate: false)
+            })
+            if success {
+                dispatch_async(dispatch_get_main_queue(), {
+                    let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MapAndTableTabBarController") as! UITabBarController
+                    self.presentViewController(controller, animated: true, completion: nil)
+                })
             } else {
-                let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
-                //Fetch the session id
-                var parsingError: NSError? = nil
-                let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
-                if let session = parsedResult["session"] as? NSDictionary{
-                    if let id = session["id"] as? NSString{
-                    self.completeLogin()
-                    }
-                }
-                if let errorMessage = parsedResult["error"] as? String {
-                    println("Login failed with error: " + errorMessage)
-                    self.usernameTextField.resignFirstResponder()
-                    self.passwordTextField.resignFirstResponder()
-                    var alert = UIAlertController(title: "Login Failed", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
+                Helper.displayAlert(inViewController: self, withTitle:"Login error", message: errorString!, completionHandler: { (alertAction) -> Void in
+                    self.alert!.dismissViewControllerAnimated(true, completion: nil)
+                })
             }
         }
-        /*  Start the request */
-        task.resume()
+
     }
     
+  
     //Handle Signup tap
     @IBAction func signupButton(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signin")!)

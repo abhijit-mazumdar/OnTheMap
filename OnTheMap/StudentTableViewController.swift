@@ -9,8 +9,6 @@
 import UIKit
 
 class StudentTableViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
-
-    var studentLocations = [StudentLocation]()
     
     @IBOutlet weak var studentsTableView: UITableView!
     
@@ -20,7 +18,7 @@ class StudentTableViewController: UITableViewController, UITableViewDataSource, 
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        studentLocations = StudentClient.sharedInstance().studentLocations
+        var studentLocations = StudentClient.sharedInstance().studentLocations
         self.studentsTableView.reloadData()
     }
     
@@ -28,20 +26,25 @@ class StudentTableViewController: UITableViewController, UITableViewDataSource, 
         self.studentsTableView.reloadData()
     }
     
+    // Logout Button
+    @IBAction func logoutButton(sender: AnyObject) {
+        UdacityClient.sharedInstance().logoutSession()
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     //MARK: Table View Methods
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return studentLocations.count
+        return StudentClient.sharedInstance().studentLocations.count
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("StudentTableViewCell",forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel!.text = "\(studentLocations[indexPath.row].description)"
+        cell.textLabel!.text = StudentClient.sharedInstance().studentLocations[indexPath.row].description
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        UIApplication.sharedApplication().openURL(NSURL(string: studentLocations[indexPath.row].mediaURL)!)
+        UIApplication.sharedApplication().openURL(NSURL(string: StudentClient.sharedInstance().studentLocations[indexPath.row].mediaURL)!)
     }
     
 }

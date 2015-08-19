@@ -14,6 +14,7 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    var alert: UIAlertController?
     var selected: MKAnnotation?
     
     override func viewDidLoad() {
@@ -23,8 +24,12 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
             if(success) {
                 self.loadStudentAnnotationsToMapView()
             }
+            else{
+                Helper.displayAlert(inViewController: self.alert!, withTitle: "Error", message: "Error dowmloading student data", completionHandler: { (alertAction) -> Void in
+                    self.alert!.dismissViewControllerAnimated(true, completion: nil)
+            })
+            }
         }
-        
     }
     
    // Refresh Button
@@ -46,6 +51,11 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
         })
     }
     
+    // Logout Button
+    @IBAction func logoutButton(sender: AnyObject) {
+        UdacityClient.sharedInstance().logoutSession()
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     // MARK: Map view methods
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
