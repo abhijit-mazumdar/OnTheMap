@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class StudentMapViewController: UIViewController,MKMapViewDelegate {
+class StudentMapViewController: UIViewController,MKMapViewDelegate,UINavigationBarDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -19,7 +19,9 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         mapView.delegate = self
+        if Helper.isConnectedToNetwork(){
         StudentClient.sharedInstance().getStudentLocations { (success, errorString) -> Void in
             if(success) {
                 self.loadStudentAnnotationsToMapView()
@@ -30,10 +32,44 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
             })
             }
         }
+        } else {
+            var alert = UIAlertController(title: "Network error", message: "Please make sure device is connected to Wi-Fi or phone data", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        // Create the navigation bar
+        let navigationBar = UINavigationBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
+        navigationBar.backgroundColor = UIColor.whiteColor()
+        navigationBar.delegate = self;
+        
+        // Create a navigation item with a title
+        let navigationItem = UINavigationItem()
+        navigationItem.title = "On The Map"
+        
+        // Create left and right button for navigation item
+        let logoutButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logoutButton")
+        let postButton = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "tapPost")
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreshStudents")
+        
+        // Create three buttons for the navigation item
+        navigationItem.leftBarButtonItem = logoutButton
+        navigationItem.setRightBarButtonItems([refreshButton,postButton], animated: true)
+        
+        // Assign the navigation item to the navigation bar
+        navigationBar.items = [navigationItem]
+        
+        // Make the navigation bar a subview of the current view controller
+        self.view.addSubview(navigationBar)
     }
     
    // Refresh Button
-    @IBAction func refreshStudents(sender: AnyObject) {
+    func refreshStudents() {
+        if Helper.isConnectedToNetwork(){
         StudentClient.sharedInstance().getStudentLocations { (success, errorString) -> Void in
             if(success) {
                 self.loadStudentAnnotationsToMapView()
@@ -43,6 +79,12 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
                     self.alert!.dismissViewControllerAnimated(true, completion: nil)
                 })
             }
+        }
+        } else {
+            var alert = UIAlertController(title: "Network error", message: "Please make sure device is connected to Wi-Fi or phone data", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+
         }
     }
     
@@ -61,9 +103,15 @@ class StudentMapViewController: UIViewController,MKMapViewDelegate {
     }
     
     // Logout Button
-    @IBAction func logoutButton(sender: AnyObject) {
+    func logoutButton() {
         UdacityClient.sharedInstance().logoutSession()
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // Load Information posting view
+    func tapPost(){
+        let vc: UIViewController = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingVC") as! UIViewController
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     // MARK: Map view methods
     

@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "OnTheMap/StudentMapViewController.swift"
-            timestampString = "461714369.96727"
+            timestampString = "461821735.630756"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "loadStudentAnnotationsToMapView()"
             landmarkType = "5">
          </BreakpointContent>
@@ -142,6 +142,22 @@
             startingLineNumber = "56"
             endingLineNumber = "56"
             landmarkName = "configureUI()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OnTheMap/StudentMapViewController.swift"
+            timestampString = "461821585.575189"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "tapPost()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

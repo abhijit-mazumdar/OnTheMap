@@ -175,6 +175,7 @@ class LoginViewController: UIViewController {
                 var alert = UIAlertController(title: "Login error", message: errorString , preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
+                self.activityIndicator.hidden = true
             }
         }
         } else {
